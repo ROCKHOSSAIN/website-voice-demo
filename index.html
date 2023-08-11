@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment 2</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="images/Frame.png" type="x-icon" />
     <!-- font-awesome  -->
     <link
       rel="stylesheet"
@@ -17,32 +16,7 @@
 
     <!-- js code  -->
 
-    <script>
-      const homeSection = document.getElementById("Home");
-      const aboutSection = document.getElementById("About");
-      const servicesSection = document.getElementById("Developers");
-
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false;
-
-      recognition.onresult = function (event) {
-        const transcript = event.results[0][0].transcript.toLowerCase();
-
-        if (transcript.includes("home")) {
-          homeSection.scrollIntoView({ behavior: "smooth" });
-        } else if (transcript.includes("about")) {
-          aboutSection.scrollIntoView({ behavior: "smooth" });
-        } else if (transcript.includes("developers")) {
-          servicesSection.scrollIntoView({ behavior: "smooth" });
-        }
-      };
-
-      document
-        .getElementById("startListeningButton")
-        .addEventListener("click", function () {
-          recognition.start();
-        });
-    </script>
+    
   </head>
   <body>
     <header id="home">
@@ -291,5 +265,50 @@
       </div>
       <p class="copyright">Play Games @ Gamer @ 2000-2023 Gamer Bangladesh</p>
     </footer>
+
+
+    <!-- Add the following code within the <script> tag in your existing HTML -->
+
+<script>
+  if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    
+    recognition.onresult = function(event) {
+      const transcript = event.results[0][0].transcript.toLowerCase();
+      handleVoiceCommand(transcript);
+    };
+    
+    const startListeningButton = document.getElementById('startListeningButton');
+    startListeningButton.addEventListener('click', function() {
+      recognition.start();
+    });
+    
+    function handleVoiceCommand(command) {
+      if (command.includes('home')) {
+        scrollToSection('home');
+      } else if (command.includes('about')) {
+        scrollToSection('About'); // Make sure the section ID is exactly as specified in your HTML
+      } else if (command.includes('developers')) {
+        scrollToSection('Developers'); // Make sure the section ID is exactly as specified in your HTML
+      }
+    }
+    
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    
+    recognition.onerror = function(event) {
+      console.error('Speech recognition error', event.error);
+    };
+  } else {
+    console.log('Speech recognition not supported.');
+  }
+</script>
+
   </body>
 </html>
