@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment 2</title>
+
+    <style>
+      .typewriter {
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 8px;
+    animation: typewriter 30s infinite; /* Adjust the animation duration for slower speed */
+  }
+  @keyframes typewriter {
+    0% {
+      width: 0; /* Start with zero width */
+    }
+    100% {
+      width: 100%; /* Full width at the end */
+    }
+  }
+    </style>
     <link rel="stylesheet" href="style.css" />
     <!-- font-awesome  -->
     <link
@@ -46,7 +65,7 @@
     <main>
       <section class="banner-section">
         <div class="banner-content">
-          <h1 class="banner-header">Play Like The</h1>
+          <h1 class="banner-header typewriter">Play Like The</h1>
           <h1 class="banner-header-2">G.O.A.T</h1>
           <span
             ><p class="banner-para">
@@ -87,7 +106,7 @@
         </div>
         <div class="game-content">
           <h1 class="game-header">We are gamer</h1>
-          <p class="game-description">
+          <p class="game-description ">
             An international digital games and entertainment company. We
             develop, publish and distribute multiplayer mobile games. We reach
             over 400 million players each month and our audience keeps growing.
@@ -154,7 +173,7 @@
       </section>
 
       <!-- best-ever-game collection  -->
-      <section id="Developers" class="best-game-collection">
+      <section id="developer" class="best-game-collection">
         <div class="best-game-content">
           <h5>TODAY'S</h5>
           <h1>GAMES COLLECTION</h1>
@@ -308,6 +327,31 @@
   } else {
     console.log('Speech recognition not supported.');
   }
+
+
+    const typewriters = document.querySelectorAll('.typewriter');
+    typewriters.forEach(typewriter => {
+      let text = typewriter.textContent;
+      let charIndex = 0;
+      let direction = 1;
+
+      function type() {
+        typewriter.textContent = text.slice(0, charIndex);
+
+        if (charIndex === text.length) {
+          direction = -1;
+        } else if (charIndex === 0 && direction === -1) {
+          direction = 1;
+        }
+
+        charIndex += direction;
+
+        setTimeout(type, 100); // Adjust the delay (in milliseconds)
+      }
+
+      type(); // Start the typewriter effect
+    });
+
 </script>
 
   </body>
